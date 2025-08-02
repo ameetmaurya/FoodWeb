@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- The xmlns:th attribute enables Thymeleaf for this page -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure Healthy Eats</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f5f5f5;
+            --card-bg: #fff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .navbar-custom {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .hero-section {
+            padding: 80px 20px;
+            background-color: var(--bg-light);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            text-align: center;
+            background: var(--card-bg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .cta-button {
+            padding: 15px 30px;
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
+        }
+
+        .cta-button:hover {
+            background-color: #7cb342;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- This div will be replaced by the navbar fragment -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- Hero section -->
+<section class="hero-section text-center">
+    <!-- Using a placeholder logo for visual design consistency -->
+    <img src="logo.jpg" alt="logo" style="width: 170px; height: auto;" class="mb-4 rounded-circle">
+    <h1 class="hero-title">
+        Fresh & Healthy Food <br> Delivered To You
+    </h1>
+    <p class="hero-subtitle">
+        Discover our delicious selection of fresh salads and natural juices, made with the finest ingredients for your healthy lifestyle.
+    </p>
+</section>
+
+<!-- Product section -->
+<section class="container my-5">
+    <div class="row justify-content-center g-4">
+        <div class="col-md-6 col-lg-5">
+            <a th:href="@{/menu}" style="text-decoration: none; color: inherit;">
+                <div class="product-card">
+                    <!-- Using a placeholder image for visual design consistency -->
+                    <img src="greensalad.jpg" alt="Fresh salad">
+                    <div class="p-4">
+                        <h3 class="mb-1 fw-bold">Fresh salads</h3>
+                        <p class="text-muted mb-0">Customizable salads</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-6 col-lg-5">
+            <a th:href="@{/menu}" style="text-decoration: none; color: inherit;">
+                <div class="product-card">
+                    <!-- Using a placeholder image for visual design consistency -->
+                    <img src="BerrySmoothie.jpg" alt="Natural Juice">
+                    <div class="p-4">
+                        <h3 class="mb-1 fw-bold">Natural Juice</h3>
+                        <p class="text-muted mb-0">Cold-pressed juices made from fresh fruits and vegetables</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Button -->
+<div class="text-center my-5">
+    <a th:href="@{/menu}" class="cta-button">
+        View Our Menu
+    </a>
+</div>
+
+</body>
+</html>

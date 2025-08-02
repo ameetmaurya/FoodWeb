@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Your Cart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f5f5f5;
+            --card-bg: #fff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .navbar-custom {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .cart-item-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item-card:hover {
+             transform: translateY(-3px);
+             box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        }
+
+        .item-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .item-price {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .qty-controls .btn {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            background-color: #f1f8e9;
+        }
+
+        .qty-controls .btn:hover {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .qty-controls .qty {
+            border-top: 1px solid var(--primary-color);
+            border-bottom: 1px solid var(--primary-color);
+            border-left: none;
+            border-right: none;
+            width: 50px;
+            text-align: center;
+            background-color: #f1f8e9;
+        }
+
+        .subtotal-amount {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .remove-btn {
+            color: #dc3545;
+            background-color: #f8d7da;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .remove-btn:hover {
+            background-color: #dc3545;
+            color: var(--text-light);
+            transform: scale(1.1);
+        }
+
+        .summary-card {
+            background-color: #e8f5e9;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .total-label {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .total-amount {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .btn-continue-shopping {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: var(--text-light);
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 50px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-continue-shopping:hover {
+            background-color: #7cb342;
+        }
+
+        .empty-cart-message {
+            margin-top: 5rem;
+        }
+
+        .empty-cart-message h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #6c757d;
+        }
+
+        .empty-cart-message p {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-5 fw-bold">Your Cart</h2>
+
+    <div class="cart-content">
+        <!-- Empty Cart -->
+        <div th:if="${#lists.isEmpty(cartItems)}" class="text-center empty-cart-message">
+            <h3>Your cart is empty.</h3>
+            <p>Looks like you haven't added anything to your cart yet.</p>
+            <a href="/menu" class="btn btn-continue-shopping mt-3">Start Shopping</a>
+        </div>
+
+        <!-- Cart Items -->
+        <div th:if="${!#lists.isEmpty(cartItems)}" class="row">
+            <div class="col-lg-8">
+                <div class="cart-items-container">
+                    <div class="cart-item-card" th:each="item : ${cartItems}" th:attr="data-id=${item.id}">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div>
+                                <div class="item-name" th:text="${item.name}"></div>
+                                <div class="item-price mt-1">₹ <span class="price" th:text="${item.price}"></span></div>
+                            </div>
+                            <div class="d-flex align-items-center flex-shrink-0">
+                                <div class="qty-controls me-3">
+                                    <div class="input-group">
+                                        <button class="btn btn-outline-secondary decrease" type="button">-</button>
+                                        <input type="text" th:value="${item.quantity}" class="form-control qty" readonly>
+                                        <button class="btn btn-outline-secondary increase" type="button">+</button>
+                                    </div>
+                                </div>
+                                <div class="subtotal-amount me-3">₹ <span class="subtotal" th:text="${#numbers.formatDecimal(item.subtotal, 1, 2)}"></span></div>
+                                <button class="btn remove-btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="summary-card">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="total-label">Total:</span>
+                        <span class="total-amount">₹ <span id="total-amount" th:text="${#numbers.formatDecimal(totalAmount, 1, 2)}"></span></span>
+                    </div>
+                    <a href="/menu" class="btn btn-continue-shopping w-100">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function(e, xhr, options) {
+            xhr.setRequestHeader(header, token);
+        });
+    });
+
+    $(document).ready(function() {
+        // Function to recalculate the grand total
+        function updateTotalAmount() {
+            let total = 0;
+            $('.cart-item-card .subtotal').each(function() {
+                const subtotalValue = parseFloat($(this).text().replace(/[^0-9.-]+/g, ""));
+                if (!isNaN(subtotalValue)) {
+                    total += subtotalValue;
+                }
+            });
+            $('#total-amount').text(total.toFixed(2));
+            if (total === 0) {
+                 $('.cart-content').html(`
+                    <div class="text-center empty-cart-message">
+                        <h3>Your cart is empty.</h3>
+                        <p>Looks like you haven't added anything to your cart yet.</p>
+                        <a href="/menu" class="btn btn-continue-shopping mt-3">Start Shopping</a>
+                    </div>
+                `);
+            }
+        }
+
+        // --- Event Handlers for the Cart Page ---
+
+        // Increase quantity handler
+        $(document).on('click', '.increase', function() {
+            const itemCard = $(this).closest('.cart-item-card');
+            const id = itemCard.data('id');
+            const qtyInput = itemCard.find('.qty');
+            let qty = parseInt(qtyInput.val()) + 1;
+
+            qtyInput.val(qty);
+            const priceText = itemCard.find('.price').text();
+            const price = parseFloat(priceText.replace(/[^0-9.-]+/g, ""));
+            if (!isNaN(price)) {
+                itemCard.find('.subtotal').text((price * qty).toFixed(2));
+            }
+            updateTotalAmount();
+
+            $.post(`/cart/update/${id}?quantity=${qty}`)
+                .done(function(response) {
+                    $('#cart-size').text(response.cartSize);
+                })
+                .fail(function() {
+                    alert('Failed to sync with server. Please refresh.');
+                    qtyInput.val(qty - 1);
+                });
+        });
+
+        // Decrease quantity handler
+        $(document).on('click', '.decrease', function() {
+            const itemCard = $(this).closest('.cart-item-card');
+            const id = itemCard.data('id');
+            const qtyInput = itemCard.find('.qty');
+            let qty = parseInt(qtyInput.val()) - 1;
+
+            if (qty > 0) {
+                qtyInput.val(qty);
+                const priceText = itemCard.find('.price').text();
+                const price = parseFloat(priceText.replace(/[^0-9.-]+/g, ""));
+                if (!isNaN(price)) {
+                    itemCard.find('.subtotal').text((price * qty).toFixed(2));
+                }
+                updateTotalAmount();
+
+                $.post(`/cart/update/${id}?quantity=${qty}`)
+                    .done(function(response) {
+                        $('#cart-size').text(response.cartSize);
+                    })
+                    .fail(function() {
+                        alert('Failed to sync with server. Please refresh.');
+                        qtyInput.val(qty + 1);
+                    });
+            } else {
+                removeItem(itemCard, id);
+            }
+        });
+
+        // Remove item button handler
+        $(document).on('click', '.remove-btn', function() {
+            const itemCard = $(this).closest('.cart-item-card');
+            const id = itemCard.data('id');
+            removeItem(itemCard, id);
+        });
+
+        // Function to handle item removal
+        function removeItem(itemCard, id) {
+            itemCard.remove();
+            updateTotalAmount();
+
+            $.get(`/cart/remove/${id}`)
+                .done(function(response) {
+                    $('#cart-size').text(response.cartSize);
+                })
+                .fail(function() {
+                    alert('Failed to remove item from server. Please refresh.');
+                });
+        }
+    });
+</script>
+</body>
+</html>

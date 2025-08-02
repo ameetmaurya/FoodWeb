@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<header th:fragment="navbar" style="display:flex; justify-content: space-between; align-items: center; padding: 15px 30px; border-bottom:1px solid #eee;"><a th:href="@{/home}" style="text-decoration: none; display: flex; align-items: center;">
+  <img th:src="@{/logo.jpg}" alt="Logo"
+       style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 3px solid gold;">
+  <span style="color: #333333; font-weight: bold; font-size: 20px; margin-left: 10px; font-family: Arial, sans-serif;">
+        Foodie Delight
+    </span>
+</a>
+
+  <nav style="display: flex; gap: 25px; font-size: 16px;">
+    <a th:href="@{/home}" style="text-decoration:none; color:#000;">Home</a>
+    <a th:href="@{/menu}" style="text-decoration:none; color:#000;">Menu</a>
+    <a th:href="@{/customize}" style="text-decoration:none; color:#000;">Customize</a>
+    <a th:href="@{/subscribe}" style="text-decoration:none; color:#000;">Subscribe</a>
+    <a th:href="@{/cart}" style="text-decoration:none; color:#000;">🛒</a>
+
+<!--    <div sec:authorize="isAuthenticated()">-->
+<!--      <form th:action="@{/logout}" method="post" class="d-inline">-->
+<!--        <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>-->
+<!--      </form>-->
+<!--    </div>-->
+
+    <div sec:authorize="isAuthenticated()">
+      <form th:action="@{/logout}" method="post" class="d-inline">
+        <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+      </form>
+
+    </div>
+
+  </nav>
+</header>
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe | Pure Healthy Eats</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f5f5f5;
+            --card-bg: #fff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .plan-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .plan-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-card h4 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .plan-card ul {
+            padding-left: 0;
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-card ul li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .plan-card ul li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .plan-cta-button {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--text-light);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .plan-cta-button:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .custom-plan-section {
+            background-color: #f1f8e9;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 2.5rem;
+        }
+
+        .custom-plan-section .btn {
+            background-color: var(--text-dark);
+            border-color: var(--text-dark);
+            color: var(--text-light);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        .custom-plan-section .btn:hover {
+            background-color: #555;
+            border-color: #555;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="container text-center my-5">
+    <h1 class="hero-title mb-2">Subscription Plans</h1>
+    <p class="text-muted">Choose a plan that works best for you and your lifestyle</p>
+
+    <div class="row justify-content-center mt-5 g-4">
+
+        <div class="col-md-4">
+            <div class="plan-card">
+                <div>
+                    <h3 class="fw-bold">Basic Plan</h3>
+                    <h4 class="text-dark">₹2499<span class="fs-6 text-muted">/Monthly</span></h4>
+                    <p class="fw-semibold">12 Meals</p>
+                    <ul class="text-start">
+                        <li>Choice of any salad or juice</li>
+                        <li>Weekly delivery</li>
+                        <li>Basic customization</li>
+                        <li>Email support</li>
+                    </ul>
+                </div>
+                <button class="btn plan-cta-button mt-auto">Subscribe Now</button>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="plan-card">
+                <div>
+                    <h3 class="fw-bold">Premium Plan</h3>
+                    <h4 class="text-dark">₹3999<span class="fs-6 text-muted">/Monthly</span></h4>
+                    <p class="fw-semibold">20 Meals</p>
+                    <ul class="text-start">
+                        <li>Choice of any salad or juice</li>
+                        <li>Bi-weekly delivery</li>
+                        <li>Full customization</li>
+                        <li>Priority support</li>
+                        <li>Free delivery</li>
+                        <li>Nutritionist consultation</li>
+                    </ul>
+                </div>
+                <button class="btn plan-cta-button mt-auto">Subscribe Now</button>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="plan-card">
+                <div>
+                    <h3 class="fw-bold">Family Plan</h3>
+                    <h4 class="text-dark">₹5999<span class="fs-6 text-muted">/Monthly</span></h4>
+                    <p class="fw-semibold">30 Meals</p>
+                    <ul class="text-start">
+                        <li>Choice of any salad or juice</li>
+                        <li>Weekly delivery</li>
+                        <li>Full customization</li>
+                        <li>24/7 Priority support</li>
+                        <li>Free delivery</li>
+                        <li>Family nutritionist consultation</li>
+                        <li>Special occasion treats</li>
+                    </ul>
+                </div>
+                <button class="btn plan-cta-button mt-auto">Subscribe Now</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-5 custom-plan-section">
+        <h5 class="fw-bold">Need a Custom Plan?</h5>
+        <p>Contact us for corporate subscriptions or custom requirements</p>
+        <button class="btn">Contact Sales</button>
+    </div>
+</div>
+</body>
+</html>

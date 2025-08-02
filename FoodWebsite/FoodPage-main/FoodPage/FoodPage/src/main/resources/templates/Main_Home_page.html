@@ -1,0 +1,212 @@
+The images are not showing up because the browser can't find them at the paths you've provided. In a Thymeleaf application, static resources like images are typically served from a specific directory, and you need to use the correct path and Thymeleaf syntax to link to them.
+
+The most common setup for a Spring Boot/Thymeleaf project is to store images in `src/main/resources/static/images/`. Assuming this is your project structure, you need to update all your image paths to start with `/images/`.
+
+I've fixed all the image paths and cleaned up the logo's inline styling to be more consistent.
+
+### Corrected HTML with Image Paths
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Foodie Delight</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* Navbar Styles */
+    .navbar {
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 1rem 0;
+    }
+
+    .navbar-brand {
+        color: #343a40 !important;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .navbar-brand .logo-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #ffc107;
+        transition: transform 0.3s ease;
+    }
+
+    .navbar-brand .logo-img:hover {
+        transform: scale(1.1);
+    }
+
+    .nav-link {
+        color: #343a40 !important;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+        color: #ffc107 !important;
+    }
+
+    /* Adjusting button styles for the navbar */
+    .btn-outline-dark {
+        color: #343a40;
+        border-color: #343a40;
+    }
+
+    .btn-outline-dark:hover {
+        background-color: #343a40;
+        color: white;
+    }
+
+    /* Hero Section */
+    .hero {
+        position: relative;
+        background-image: url('https://source.unsplash.com/1600x900/?healthy-food');
+        background-size: cover;
+        background-position: center;
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+    }
+
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.55);
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+
+    .btn-custom {
+        font-size: 1.2rem;
+        padding: 10px 25px;
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a th:href="@{/home}" class="navbar-brand">
+      <img th:src="@{/logo.jpg}" alt="Logo" class="logo-img">
+      Foodie Delight
+    </a>
+    <div class="d-flex">
+      <a th:href="@{/login}" class="btn btn-outline-dark me-2">Login</a>
+      <a th:href="@{/signup}" class="btn btn-warning">Register</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-content">
+    <h1>Delicious Food Delivered Fast</h1>
+    <p class="lead">Fresh, healthy, and made with love</p>
+    <a href="#menu" class="btn btn-outline-light btn-custom">Explore Menu</a>
+  </div>
+</div>
+
+<section id="menu" class="py-4 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-4">🥗 Fresh Salads & 🍹 Juices</h2>
+    <div class="row g-4">
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img th:src="@{/images/greensalad.jpg}" class="card-img-top" alt="Green Salad">
+          <div class="card-body text-center">
+            <h5 class="card-title">Green Salad</h5>
+            <p class="card-text">A mix of fresh lettuce, cucumber, and herbs for a refreshing taste.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img th:src="@{/images/fruitsalad.jpeg}" class="card-img-top" alt="Fruit Salad">
+          <div class="card-body text-center">
+            <h5 class="card-title">Fruit Salad</h5>
+            <p class="card-text">Seasonal fruits tossed with a dash of honey and mint.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img th:src="@{/images/CaesarSalad.jpeg}" class="card-img-top" alt="Caesar Salad">
+          <div class="card-body text-center">
+            <h5 class="card-title">Caesar Salad</h5>
+            <p class="card-text">Classic Caesar with parmesan, croutons, and creamy dressing.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img th:src="@{/images/Orangejuice.jpg}" class="card-img-top" alt="Orange Juice">
+          <div class="card-body text-center">
+            <h5 class="card-title">Orange Juice</h5>
+            <p class="card-text">Freshly squeezed oranges full of Vitamin C.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img th:src="@{/images/BerrySmoothie.jpg}" class="card-img-top" alt="Berry Smoothie">
+          <div class="card-body text-center">
+            <h5 class="card-title">Berry Smoothie</h5>
+            <p class="card-text">Mixed berries blended to perfection with yogurt and honey.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img th:src="@{/images/images.jpeg}" class="card-img-top" alt="Green Juice">
+          <div class="card-body text-center">
+            <h5 class="card-title">Green Detox Juice</h5>
+            <p class="card-text">Cucumber, spinach, lemon, and mint — pure refreshment!</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="bg-dark text-white text-center py-3">
+  © 2025 Foodie Delight. All rights reserved.
+</footer>
+
+</body>
+</html>
+```

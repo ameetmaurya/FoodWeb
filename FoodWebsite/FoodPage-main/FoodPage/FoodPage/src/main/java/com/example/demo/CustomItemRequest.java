@@ -1,0 +1,14 @@
+
+package com.example.demo;
+
+public class CustomItemRequest {
+    private String name;
+    private double price;
+    // ✅ The 'description' field has been removed.
+
+    // Getters and Setters
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
+}
