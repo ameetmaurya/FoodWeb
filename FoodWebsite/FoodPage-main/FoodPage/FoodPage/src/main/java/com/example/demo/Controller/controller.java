@@ -29,12 +29,12 @@ public class controller {
     public void initializeDatabase() {
         if (repository.count() == 0) {
             List<Product> initialProducts = Arrays.asList(
-                    new Product(0, "Mixed Vegetable Salad", 249, "images/CaesarSalad.jpeg", "Fresh mixed vegetables with olive oil dressing"),
-                    new Product(0, "Mixed Fruit Salad", 299, "images/greensalad.jpg", "Seasonal fruits with honey-lime dressing"),
-                    new Product(0, "Garden Fresh Salad", 279, "images/fruitsalad.jpeg", "Mixed greens with nuts and seeds"),
-                    new Product(0, "Orange Sunrise", 149, "images/watermelon.jpeg", "Fresh orange juice with pulp"),
-                    new Product(0, "Watermelon Refresh", 199, "images/mango.jpg", "Pure watermelon juice with mint"),
-                    new Product(0, "Mango Delight", 179, "images/BerrySmoothie.jpg", "Sweet mango juice with a hint of lime")
+                    new Product(0, "Mixed Vegetable Salad", 249, "images/CaesarSalad.png", "Fresh mixed vegetables with olive oil dressing"),
+                    new Product(0, "Mixed Fruit Salad", 299, "images/fruitsalad.png", "Seasonal fruits with honey-lime dressing"),
+                    new Product(0, "Garden Fresh Salad", 279, "images/greensalad.png", "Mixed greens with nuts and seeds"),
+                    new Product(0, "Orange Sunrise", 149, "images/orangejuice.png", "Fresh orange juice with pulp"),
+                    new Product(0, "Watermelon Refresh", 199, "images/watermelon.png", "Pure watermelon juice with mint"),
+                    new Product(0, "Berry Juice", 179, "images/berry.png", "Sweet berry juice with a hint of stawberry")
             );
             repository.saveAll(initialProducts);
         }

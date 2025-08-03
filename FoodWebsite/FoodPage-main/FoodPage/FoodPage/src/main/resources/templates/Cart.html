@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -136,6 +137,23 @@
         .btn-continue-shopping:hover {
             background-color: #7cb342;
         }
+        
+        /* New styling for the Pay Now button */
+        .btn-pay-now {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--text-light);
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 50px;
+            transition: background-color 0.2s ease;
+            margin-top: 15px; /* Added some space below the total */
+        }
+        
+        .btn-pay-now:hover {
+            background-color: #43a047;
+            border-color: #43a047;
+        }
 
         .empty-cart-message {
             margin-top: 5rem;
@@ -160,14 +178,12 @@
     <h2 class="text-center mb-5 fw-bold">Your Cart</h2>
 
     <div class="cart-content">
-        <!-- Empty Cart -->
         <div th:if="${#lists.isEmpty(cartItems)}" class="text-center empty-cart-message">
             <h3>Your cart is empty.</h3>
             <p>Looks like you haven't added anything to your cart yet.</p>
             <a href="/menu" class="btn btn-continue-shopping mt-3">Start Shopping</a>
         </div>
 
-        <!-- Cart Items -->
         <div th:if="${!#lists.isEmpty(cartItems)}" class="row">
             <div class="col-lg-8">
                 <div class="cart-items-container">
@@ -203,7 +219,12 @@
                         <span class="total-label">Total:</span>
                         <span class="total-amount">₹ <span id="total-amount" th:text="${#numbers.formatDecimal(totalAmount, 1, 2)}"></span></span>
                     </div>
-                    <a href="/menu" class="btn btn-continue-shopping w-100">Continue Shopping</a>
+                    <a href="https://razorpay.me/@foodorder5088" target="_blank" class="btn btn-pay-now w-100">
+                        Pay Now
+                    </a>
+                    <a href="/menu" class="btn btn-continue-shopping w-100 mt-2">
+                        Continue Shopping
+                    </a>
                 </div>
             </div>
         </div>
@@ -320,5 +341,7 @@
         }
     });
 </script>
+
 </body>
 </html>
+```

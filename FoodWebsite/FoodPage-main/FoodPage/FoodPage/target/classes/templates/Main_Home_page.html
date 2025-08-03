@@ -1,18 +1,10 @@
-The images are not showing up because the browser can't find them at the paths you've provided. In a Thymeleaf application, static resources like images are typically served from a specific directory, and you need to use the correct path and Thymeleaf syntax to link to them.
-
-The most common setup for a Spring Boot/Thymeleaf project is to store images in `src/main/resources/static/images/`. Assuming this is your project structure, you need to update all your image paths to start with `/images/`.
-
-I've fixed all the image paths and cleaned up the logo's inline styling to be more consistent.
-
-### Corrected HTML with Image Paths
-
-```html
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Foodie Delight</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <style>
     /* Navbar Styles */
@@ -69,7 +61,8 @@ I've fixed all the image paths and cleaned up the logo's inline styling to be mo
     /* Hero Section */
     .hero {
         position: relative;
-        background-image: url('https://source.unsplash.com/1600x900/?healthy-food');
+        /* Using a background image from your local folder */
+        background-image: url('images/bg1.png');
         background-size: cover;
         background-position: center;
         height: 60vh;
@@ -105,9 +98,12 @@ I've fixed all the image paths and cleaned up the logo's inline styling to be mo
         padding: 10px 25px;
     }
 
+    /* Corrected style for images to make them cover the box */
     .card-img-top {
-        height: 200px;
-        object-fit: cover;
+        width: 100%;
+        height: 300px; /* Setting a fixed height for a consistent look */
+        object-fit: cover; /* This is the key change to make the image fill the box */
+        background-color: #f8f9fa;
     }
   </style>
 </head>
@@ -116,7 +112,7 @@ I've fixed all the image paths and cleaned up the logo's inline styling to be mo
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <a th:href="@{/home}" class="navbar-brand">
-      <img th:src="@{/logo.jpg}" alt="Logo" class="logo-img">
+      <img th:src="@{/images/logo.jpg}" alt="Logo" class="logo-img">
       Foodie Delight
     </a>
     <div class="d-flex">
@@ -141,7 +137,7 @@ I've fixed all the image paths and cleaned up the logo's inline styling to be mo
 
       <div class="col-md-4">
         <div class="card h-100">
-          <img th:src="@{/images/greensalad.jpg}" class="card-img-top" alt="Green Salad">
+          <img th:src="@{/images/greensalad.png}" class="card-img-top" alt="Green Salad">
           <div class="card-body text-center">
             <h5 class="card-title">Green Salad</h5>
             <p class="card-text">A mix of fresh lettuce, cucumber, and herbs for a refreshing taste.</p>
@@ -151,7 +147,7 @@ I've fixed all the image paths and cleaned up the logo's inline styling to be mo
 
       <div class="col-md-4">
         <div class="card h-100">
-          <img th:src="@{/images/fruitsalad.jpeg}" class="card-img-top" alt="Fruit Salad">
+          <img th:src="@{/images/fruitsalad.png}" class="card-img-top" alt="Fruit Salad">
           <div class="card-body text-center">
             <h5 class="card-title">Fruit Salad</h5>
             <p class="card-text">Seasonal fruits tossed with a dash of honey and mint.</p>
@@ -161,7 +157,7 @@ I've fixed all the image paths and cleaned up the logo's inline styling to be mo
 
       <div class="col-md-4">
         <div class="card h-100">
-          <img th:src="@{/images/CaesarSalad.jpeg}" class="card-img-top" alt="Caesar Salad">
+          <img th:src="@{/images/CaesarSalad.png}" class="card-img-top" alt="Caesar Salad">
           <div class="card-body text-center">
             <h5 class="card-title">Caesar Salad</h5>
             <p class="card-text">Classic Caesar with parmesan, croutons, and creamy dressing.</p>
@@ -171,7 +167,7 @@ I've fixed all the image paths and cleaned up the logo's inline styling to be mo
 
       <div class="col-md-4">
         <div class="card h-100">
-          <img th:src="@{/images/Orangejuice.jpg}" class="card-img-top" alt="Orange Juice">
+          <img th:src="@{/images/orangejuice.png}" class="card-img-top" alt="Orange Juice">
           <div class="card-body text-center">
             <h5 class="card-title">Orange Juice</h5>
             <p class="card-text">Freshly squeezed oranges full of Vitamin C.</p>
@@ -181,7 +177,7 @@ I've fixed all the image paths and cleaned up the logo's inline styling to be mo
 
       <div class="col-md-4">
         <div class="card h-100">
-          <img th:src="@{/images/BerrySmoothie.jpg}" class="card-img-top" alt="Berry Smoothie">
+          <img th:src="@{/images/berry.png}" class="card-img-top" alt="Berry Smoothie">
           <div class="card-body text-center">
             <h5 class="card-title">Berry Smoothie</h5>
             <p class="card-text">Mixed berries blended to perfection with yogurt and honey.</p>
@@ -191,10 +187,10 @@ I've fixed all the image paths and cleaned up the logo's inline styling to be mo
 
       <div class="col-md-4">
         <div class="card h-100">
-          <img th:src="@{/images/images.jpeg}" class="card-img-top" alt="Green Juice">
+          <img th:src="@{/images/watermelon.png}" class="card-img-top" alt="Green Juice">
           <div class="card-body text-center">
-            <h5 class="card-title">Green Detox Juice</h5>
-            <p class="card-text">Cucumber, spinach, lemon, and mint — pure refreshment!</p>
+            <h5 class="card-title">Watermelon Juice</h5>
+            <p class="card-text">Watermelon, energetic, natrual, and sweet — pure refreshment!</p>
           </div>
         </div>
       </div>
@@ -209,4 +205,3 @@ I've fixed all the image paths and cleaned up the logo's inline styling to be mo
 
 </body>
 </html>
-```
