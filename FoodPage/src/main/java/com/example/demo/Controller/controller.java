@@ -24,7 +24,7 @@ public class controller {
         this.repository = repository;
         this.cartService = cartService;
     }
-
+//the databse should not empty
     @PostConstruct
     public void initializeDatabase() {
         if (repository.count() == 0) {
@@ -98,6 +98,8 @@ public class controller {
     }
 
     // ✅ Add Product to Cart (AJAX)
+    //every thing take place on the spot
+    //Asynchronous JavaScript and XML
     @PostMapping("/add-to-cart/{id}")
     @ResponseBody
     public Map<String, Object> addToCart(@PathVariable int id) {
